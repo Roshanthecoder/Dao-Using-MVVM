@@ -39,10 +39,10 @@ class Login : Fragment(R.layout.fragment_login) {
 
 
     private fun initObservers() {
-        model.signupSuccess.observe(viewLifecycleOwner) {
+        model.loginCheckProcess.observe(viewLifecycleOwner) {
             Toast.makeText(
                 requireContext(),
-                if (it) {
+                if (!it) {
                     "No Account Created"
                 } else {
                     "Login Sucessfully"
@@ -50,6 +50,8 @@ class Login : Fragment(R.layout.fragment_login) {
                 Toast.LENGTH_SHORT
             ).show()
         }
+
+
     }
 
     private fun initListeners() {
@@ -63,8 +65,12 @@ class Login : Fragment(R.layout.fragment_login) {
                 binding.editTextEmail.text.toString(),
                 binding.editTextPassword.text.toString()
             )
-            model.signUp(user)
+            model.loginCheck(user)
         }
+        binding.listUserRecyc.setOnClickListener {
+            findNavController().navigate(R.id.action_login_to_userList)
+        }
+
     }
 
     override fun onDestroyView() {

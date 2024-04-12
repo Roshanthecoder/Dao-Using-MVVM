@@ -18,16 +18,26 @@ class RoomRepo(private val dao: UserDao) {
         return try {
             dao.getAllUsers()
         } catch (e: Exception) {
-            Log.e("roshan", "getAllUser: ${e.localizedMessage ?: "something went woring"}")
+            Log.e("roshan", "getAllUser: ${e.localizedMessage ?: "something went wrong"}")
             emptyList()
         }
     }
 
-    suspend fun checkWhileSignup(email: String,password:String?=null): Boolean {
+
+    suspend fun checkWhileSignup(email: String): Boolean {
         return try {
-            dao.isUserExists(email,password)
+            dao.isUserExists(email)
         } catch (e: Exception) {
             Log.e("YourTag", "Error while checking user existence: ${e.message}")
+            false
+        }
+    }
+
+    suspend fun loginuserCheck(email: String, password: String): Boolean {
+        return try {
+            dao.isUserFound(email, password)
+        } catch (e: Exception) {
+            Log.e("roshan", "error while checking user existence ${e.message}")
             false
         }
     }

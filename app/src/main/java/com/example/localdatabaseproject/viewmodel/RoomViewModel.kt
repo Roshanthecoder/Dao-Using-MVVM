@@ -18,6 +18,9 @@ class RoomViewModel(private val repo: RoomRepo) : ViewModel() {
     private val _signupSuccess = MutableLiveData<Boolean>()
     val signupSuccess: LiveData<Boolean> get() = _signupSuccess
 
+    private val _loginCheckProcess = MutableLiveData<Boolean>()
+    val loginCheckProcess: LiveData<Boolean> get() = _loginCheckProcess
+
 
     fun getUserList() {
         viewModelScope.launch {
@@ -25,6 +28,19 @@ class RoomViewModel(private val repo: RoomRepo) : ViewModel() {
                 try {
                     _userlist.postValue(repo.getAllUsers())
                 } catch (e: Exception) {
+                    Log.e("roshan", "getUserList from viewmodel: ${e.localizedMessage ?: "error in somewhere"}")
+                }
+            }
+        }
+    }
+
+
+    fun loginCheck(user: User){
+        viewModelScope.launch {
+            withContext(Dispatchers.IO){
+                try {
+                    _loginCheckProcess.postValue(repo.loginuserCheck(user.email,user.password))
+                }catch (e:Exception){
                     Log.e(
                         "roshan",
                         "getUserList from viewmodel: ${e.localizedMessage ?: "error in somewhere"}"
@@ -37,7 +53,7 @@ class RoomViewModel(private val repo: RoomRepo) : ViewModel() {
     fun signUp(user: User) {
         viewModelScope.launch {
             try {
-                val userExists = repo.checkWhileSignup(user.email,user.password)
+                val userExists = repo.checkWhileSignup(user.email)
                 if (userExists) {
                     _signupSuccess.postValue(false)
                 } else {

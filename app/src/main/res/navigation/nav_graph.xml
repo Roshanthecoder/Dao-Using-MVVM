@@ -18,5 +18,13 @@
         <action
             android:id="@+id/action_login_to_signup"
             app:destination="@id/signup" />
+        <action
+            android:id="@+id/action_login_to_userList"
+            app:destination="@id/userList" />
     </fragment>
+    <fragment
+        android:id="@+id/userList"
+        android:name="com.example.localdatabaseproject.fragments.UserList"
+        android:label="fragment_user_list"
+        tools:layout="@layout/fragment_user_list" />
 </navigation>

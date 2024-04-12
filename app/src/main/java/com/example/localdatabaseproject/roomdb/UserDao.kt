@@ -10,13 +10,16 @@ interface UserDao {
     @Insert
     suspend fun insertUser(user: User)
 
-    @Query("SELECT * FROM user")
+    @Query("SELECT * FROM User")
     suspend fun getAllUsers(): List<User>
 
 
-    @Query("SELECT EXISTS (SELECT 1 FROM User WHERE email = :email AND (:password IS NULL OR password = :password) LIMIT 1)")
-    suspend fun isUserExists(email: String, password: String? = null): Boolean
 
+    @Query("SELECT EXISTS (SELECT 1 FROM User WHERE email = :email LIMIT 1)")
+    suspend fun isUserExists(email: String): Boolean
+
+    @Query("SELECT EXISTS (SELECT 1 FROM User WHERE email = :email AND password = :password LIMIT 1)")
+    suspend fun isUserFound(email: String, password: String): Boolean
 
 
 }
