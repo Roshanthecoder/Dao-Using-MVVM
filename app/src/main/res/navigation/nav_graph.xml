@@ -19,12 +19,29 @@
             android:id="@+id/action_login_to_signup"
             app:destination="@id/signup" />
         <action
-            android:id="@+id/action_login_to_userList"
-            app:destination="@id/userList" />
+            android:id="@+id/action_login_to_welcomeScreen"
+            app:destination="@id/welcomeScreen" />
     </fragment>
     <fragment
         android:id="@+id/userList"
         android:name="com.example.localdatabaseproject.fragments.UserList"
         android:label="fragment_user_list"
         tools:layout="@layout/fragment_user_list" />
+    <fragment
+        android:id="@+id/welcomeScreen"
+        android:name="com.example.localdatabaseproject.fragments.WelcomeScreen"
+        android:label="fragment_welcome_screen"
+        tools:layout="@layout/fragment_welcome_screen" >
+        <action
+            android:id="@+id/action_welcomeScreen_to_userList"
+            app:destination="@id/userList" />
+        <action
+            android:id="@+id/action_welcomeScreen_to_productPage"
+            app:destination="@id/productPage" />
+    </fragment>
+    <fragment
+        android:id="@+id/productPage"
+        android:name="com.example.localdatabaseproject.fragments.ProductPage"
+        android:label="fragment_product_page"
+        tools:layout="@layout/fragment_product_page" />
 </navigation>

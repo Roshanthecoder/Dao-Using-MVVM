@@ -6,4 +6,15 @@
     </style>
 
     <style name="Theme.LocalDatabaseProject" parent="Base.Theme.LocalDatabaseProject" />
+
+    <style name="ShapeableImageViewStyle">
+        <item name="shapeAppearance">@style/ShapeAppearance.ShapeableImageView</item>
+    </style>
+
+    <style name="ShapeAppearance.ShapeableImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item> <!-- Adjust corner radius as needed -->
+    </style>
+
+
 </resources>

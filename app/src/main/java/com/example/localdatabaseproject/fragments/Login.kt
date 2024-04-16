@@ -3,6 +3,7 @@ package com.example.localdatabaseproject.fragments
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -18,6 +19,7 @@ import com.example.localdatabaseproject.viewmodelfactory.RoomViewModelFactory
 class Login : Fragment(R.layout.fragment_login) {
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
+    private lateinit var user: User
 
     private lateinit var model: RoomViewModel
 
@@ -49,6 +51,7 @@ class Login : Fragment(R.layout.fragment_login) {
                 },
                 Toast.LENGTH_SHORT
             ).show()
+            if(it) findNavController().navigate(R.id.action_login_to_welcomeScreen, bundleOf("user" to user.email))
         }
 
 
@@ -59,7 +62,7 @@ class Login : Fragment(R.layout.fragment_login) {
             findNavController().navigate(R.id.action_login_to_signup)
         }
         binding.buttonLoginOrSignup.setOnClickListener {
-            val user = User(
+            user = User(
                 0,
                 null,
                 binding.editTextEmail.text.toString(),
@@ -68,7 +71,7 @@ class Login : Fragment(R.layout.fragment_login) {
             model.loginCheck(user)
         }
         binding.listUserRecyc.setOnClickListener {
-            findNavController().navigate(R.id.action_login_to_userList)
+           // findNavController().navigate(R.id.action_login_to_userList)
         }
 
     }
