@@ -21,17 +21,15 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.localdatabaseproject.R
 import com.example.localdatabaseproject.databinding.DialogAddproductBinding
 import com.example.localdatabaseproject.databinding.FragmentWelcomeScreenBinding
 import com.example.localdatabaseproject.models.ProductList
-import com.example.localdatabaseproject.repository.RoomRepo
-import com.example.localdatabaseproject.roomdb.AppDatabase
 import com.example.localdatabaseproject.viewmodel.RoomViewModel
-import com.example.localdatabaseproject.viewmodelfactory.RoomViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -40,21 +38,22 @@ import java.io.FileOutputStream
 import java.io.IOException
 import java.io.OutputStream
 
+@AndroidEntryPoint
 class WelcomeScreen : Fragment(R.layout.fragment_welcome_screen) {
     private var _binding: FragmentWelcomeScreenBinding? = null
     private val binding get() = _binding!!
     private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
-    private lateinit var model: RoomViewModel
+    private val model: RoomViewModel by viewModels()
     private var dialBinding: DialogAddproductBinding? = null
     private var picURI: Uri? = null
     private lateinit var pickImageLauncher: ActivityResultLauncher<Intent>
-    private val roomRepo by lazy { RoomRepo(AppDatabase.getInstance(requireContext()).userDao()) }
-    private val viewModelFactory by lazy { RoomViewModelFactory(roomRepo) }
+    /* private val roomRepo by lazy { RoomRepo(AppDatabase.getInstance(requireContext()).userDao()) }
+     private val viewModelFactory by lazy { RoomViewModelFactory(roomRepo) }*/
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentWelcomeScreenBinding.bind(view)
-        model = ViewModelProvider(this, viewModelFactory)[RoomViewModel::class.java]
+        //   model = ViewModelProvider(this, viewModelFactory)[RoomViewModel::class.java]
         initObserver()
         initListeners()
         registerPermissionLauncher()
@@ -99,7 +98,8 @@ class WelcomeScreen : Fragment(R.layout.fragment_welcome_screen) {
             // Check if the bitmap is recycled before using it
             if (!bitmap.isRecycled) {
                 // Resize and compress the bitmap before saving
-                val resizedBitmap = Bitmap.createScaledBitmap(bitmap, bitmap.width / 2, bitmap.height / 2, true)
+                val resizedBitmap =
+                    Bitmap.createScaledBitmap(bitmap, bitmap.width / 2, bitmap.height / 2, true)
                 resizedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
 
                 stream.flush()

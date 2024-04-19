@@ -9,26 +9,9 @@ import com.example.localdatabaseproject.models.ProductList
 import com.example.localdatabaseproject.models.User
 
 
-@Database(entities = [User::class,ProductList::class], version = 1)
+@Database(entities = [User::class,ProductList::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
-
     abstract fun userDao():UserDao
 
-    companion object {
-        @Volatile
-        private var INSTANCE: AppDatabase? = null
-
-        fun getInstance(context: Context): AppDatabase {
-            return INSTANCE ?: synchronized(this) {
-                val instance = Room.databaseBuilder(
-                    context.applicationContext,
-                    AppDatabase::class.java,
-                    "user_database"
-                ).build()
-                INSTANCE = instance
-                instance
-            }
-        }
-    }
 }

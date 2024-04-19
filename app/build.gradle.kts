@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.kspAndroid)
+    alias(libs.plugins.hiltPlugin)
 }
 
 android {
@@ -14,7 +15,6 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -34,11 +34,17 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    buildFeatures{
-        viewBinding{
-            enable=true
+    /*  kapt {
+          correctErrorTypes = true
+      }*/
+    buildFeatures {
+        viewBinding {
+            enable = true
         }
     }
+       hilt {
+           enableAggregatingTask = true
+       }
 }
 
 dependencies {
@@ -54,10 +60,11 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     implementation(libs.symbol.processing.api)
     implementation(libs.androidx.room.runtime)
-    annotationProcessor(libs.androidx.room.compiler)
+   // annotationProcessor(libs.androidx.room.compiler)
     ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
-    implementation (libs.glide)
-    ksp (libs.compiler)
-
+    implementation(libs.glide)
+    ksp(libs.compiler)
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.android.compiler)
 }

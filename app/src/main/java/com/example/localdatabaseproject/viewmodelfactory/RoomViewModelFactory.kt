@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.localdatabaseproject.repository.RoomRepo
 import com.example.localdatabaseproject.viewmodel.RoomViewModel
 
+/*
 class RoomViewModelFactory(private val repo: RoomRepo):ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if(modelClass.isAssignableFrom(RoomViewModel::class.java)){
@@ -13,3 +14,4 @@ class RoomViewModelFactory(private val repo: RoomRepo):ViewModelProvider.Factory
        throw IllegalArgumentException("Unknown Viewmodel Class")
     }
 }
+*/

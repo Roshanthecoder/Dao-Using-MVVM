@@ -1,38 +1,45 @@
 package com.example.localdatabaseproject.fragments
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.localdatabaseproject.R
 import com.example.localdatabaseproject.databinding.FragmentLoginBinding
 import com.example.localdatabaseproject.models.User
-import com.example.localdatabaseproject.repository.RoomRepo
-import com.example.localdatabaseproject.roomdb.AppDatabase
 import com.example.localdatabaseproject.viewmodel.RoomViewModel
-import com.example.localdatabaseproject.viewmodelfactory.RoomViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class Login : Fragment(R.layout.fragment_login) {
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
     private lateinit var user: User
 
-    private lateinit var model: RoomViewModel
+    private val model by viewModels<RoomViewModel>()
 
     // RoomRepo and ViewModelFactory instances
-    private val roomRepo by lazy { RoomRepo(AppDatabase.getInstance(requireContext()).userDao()) }
-    private val viewModelFactory by lazy { RoomViewModelFactory(roomRepo) }
+    /* private val roomRepo by lazy { RoomRepo(AppDatabase.getInstance(requireContext()).userDao()) }
+     private val viewModelFactory by lazy { RoomViewModelFactory(roomRepo) }*/
 
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        _binding = FragmentLoginBinding.bind(view)
 
-        model = ViewModelProvider(this, viewModelFactory)[RoomViewModel::class.java]
+
+        //model = ViewModelProvider(this, viewModelFactory)[RoomViewModel::class.java]
 
         initObservers()
 
@@ -51,7 +58,10 @@ class Login : Fragment(R.layout.fragment_login) {
                 },
                 Toast.LENGTH_SHORT
             ).show()
-            if(it) findNavController().navigate(R.id.action_login_to_welcomeScreen, bundleOf("user" to user.email))
+            if (it) findNavController().navigate(
+                R.id.action_login_to_welcomeScreen,
+                bundleOf("user" to user.email)
+            )
         }
 
 
@@ -71,7 +81,7 @@ class Login : Fragment(R.layout.fragment_login) {
             model.loginCheck(user)
         }
         binding.listUserRecyc.setOnClickListener {
-           // findNavController().navigate(R.id.action_login_to_userList)
+            // findNavController().navigate(R.id.action_login_to_userList)
         }
 
     }

@@ -4,8 +4,9 @@ import android.util.Log
 import com.example.localdatabaseproject.models.ProductList
 import com.example.localdatabaseproject.models.User
 import com.example.localdatabaseproject.roomdb.UserDao
+import javax.inject.Inject
 
-class RoomRepo(private val dao: UserDao) {
+class RoomRepo @Inject constructor(private val dao: UserDao) {
 
     suspend fun insertUser(user: User) {
         try {

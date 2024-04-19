@@ -2,6 +2,7 @@ package com.example.localdatabaseproject.activity
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -9,7 +10,11 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.example.localdatabaseproject.R
 import com.example.localdatabaseproject.databinding.ActivityHomeBinding
+import com.example.localdatabaseproject.viewmodel.RoomViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+
+@AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
     private var _binding: ActivityHomeBinding? = null
     private val binding get() = _binding!!
@@ -26,11 +31,7 @@ class HomeActivity : AppCompatActivity() {
         }
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.navHost) as NavHostFragment
         navController = navHostFragment.navController
-
-
     }
-
-
 
     override fun onDestroy() {
         super.onDestroy()
