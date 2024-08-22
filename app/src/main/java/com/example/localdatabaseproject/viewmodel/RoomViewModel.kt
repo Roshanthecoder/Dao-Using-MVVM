@@ -8,12 +8,16 @@ import androidx.lifecycle.viewModelScope
 import com.example.localdatabaseproject.models.ProductList
 import com.example.localdatabaseproject.models.User
 import com.example.localdatabaseproject.repository.RoomRepo
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.Locale
+import javax.inject.Inject
 
-class RoomViewModel(private val repo: RoomRepo) : ViewModel() {
+
+@HiltViewModel
+class RoomViewModel @Inject constructor(private val repo: RoomRepo) : ViewModel() {
     private val _userlist = MutableLiveData<List<User>>()
     val userList get() = _userlist
     private val _productlist = MutableLiveData<List<ProductList>>()
@@ -33,7 +37,10 @@ class RoomViewModel(private val repo: RoomRepo) : ViewModel() {
                 try {
                     _userlist.postValue(repo.getAllUsers())
                 } catch (e: Exception) {
-                    Log.e("roshan", "getUserList from viewmodel: ${e.localizedMessage ?: "error in somewhere"}")
+                    Log.e(
+                        "roshan",
+                        "getUserList from viewmodel: ${e.localizedMessage ?: "error in somewhere"}"
+                    )
                 }
             }
         }
@@ -45,19 +52,27 @@ class RoomViewModel(private val repo: RoomRepo) : ViewModel() {
                 try {
                     _productlist.postValue(repo.getAllProductList())
                 } catch (e: Exception) {
-                    Log.e("roshan", "getproductlist from viewmodel: ${e.localizedMessage ?: "error in somewhere"}")
+                    Log.e(
+                        "roshan",
+                        "getproductlist from viewmodel: ${e.localizedMessage ?: "error in somewhere"}"
+                    )
                 }
             }
         }
     }
 
 
-    fun loginCheck(user: User){
+    fun loginCheck(user: User) {
         viewModelScope.launch {
-            withContext(Dispatchers.IO){
+            withContext(Dispatchers.IO) {
                 try {
-                    _loginCheckProcess.postValue(repo.loginuserCheck(user.email.lowercase(Locale.ROOT),user.password))
-                }catch (e:Exception){
+                    _loginCheckProcess.postValue(
+                        repo.loginuserCheck(
+                            user.email.lowercase(Locale.ROOT),
+                            user.password
+                        )
+                    )
+                } catch (e: Exception) {
                     Log.e(
                         "roshan",
                         "getUserList from viewmodel: ${e.localizedMessage ?: "error in somewhere"}"
@@ -100,7 +115,7 @@ class RoomViewModel(private val repo: RoomRepo) : ViewModel() {
         }
     }
 
-    fun insertProduct(productList: ProductList, result: (Boolean) ->Unit) {
+    fun insertProduct(productList: ProductList, result: (Boolean) -> Unit) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 try {
