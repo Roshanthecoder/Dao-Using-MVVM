@@ -67,4 +67,11 @@ dependencies {
     ksp(libs.compiler)
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
+//api calls
+    implementation (libs.retrofit)
+   // implementation (libs.converter.gson)
+    implementation (libs.converter.jackson)
+    implementation(libs.jackson.module.kotlin)
+
+    implementation (libs.okhttp)
 }

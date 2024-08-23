@@ -81,6 +81,7 @@ class Login : Fragment(R.layout.fragment_login) {
             model.loginCheck(user)
         }
         binding.listUserRecyc.setOnClickListener {
+            findNavController().navigate(R.id.action_login_to_exerciseFragment)
             // findNavController().navigate(R.id.action_login_to_userList)
         }
 
