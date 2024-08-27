@@ -48,8 +48,9 @@ object ApplicationModule {
                     .configure(KotlinFeature.NullIsSameAsDefault, false)
                     .configure(KotlinFeature.SingletonSupport, false)
                     .configure(KotlinFeature.StrictNullChecks, false).build()
-            ) // Registering KotlinModule properly
+            )
             configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+            configure(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT, true) // Handle empty strings
         }
     }
 
@@ -72,7 +73,7 @@ object ApplicationModule {
         okHttpClient: OkHttpClient, objectMapper: ObjectMapper
     ): Retrofit {
         return Retrofit.Builder().client(okHttpClient)
-            .baseUrl(ApiConstant.BASE_URL) // Replace with your base URL
+            .baseUrl(ApiConstant.INSTAGRAM_BASE_URL) // Replace with your base URL
             .addConverterFactory(JacksonConverterFactory.create(objectMapper)).build()
     }
 

@@ -59,19 +59,25 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     implementation(libs.symbol.processing.api)
+
+    //room database
     implementation(libs.androidx.room.runtime)
-   // annotationProcessor(libs.androidx.room.compiler)
     ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
+
+    //image library
     implementation(libs.glide)
     ksp(libs.compiler)
+
+    //hilt dependency
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
-//api calls
+    //api calls
     implementation (libs.retrofit)
-   // implementation (libs.converter.gson)
     implementation (libs.converter.jackson)
     implementation(libs.jackson.module.kotlin)
-
     implementation (libs.okhttp)
+
+    //exoplayer
+    implementation (libs.exoplayer)
 }

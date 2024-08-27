@@ -85,6 +85,10 @@ class Login : Fragment(R.layout.fragment_login) {
             // findNavController().navigate(R.id.action_login_to_userList)
         }
 
+        binding.btnReels.setOnClickListener {
+            findNavController().navigate(R.id.action_login_to_reels)
+        }
+
     }
 
     override fun onDestroyView() {

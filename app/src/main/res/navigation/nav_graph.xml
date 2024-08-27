@@ -24,6 +24,9 @@
         <action
             android:id="@+id/action_login_to_exerciseFragment"
             app:destination="@id/exerciseFragment" />
+        <action
+            android:id="@+id/action_login_to_reels"
+            app:destination="@id/reels" />
     </fragment>
     <fragment
         android:id="@+id/userList"
@@ -52,4 +55,9 @@
         android:name="com.example.localdatabaseproject.fragments.ExerciseFragment"
         android:label="fragment_exercise"
         tools:layout="@layout/fragment_exercise" />
+    <fragment
+        android:id="@+id/reels"
+        android:name="com.example.localdatabaseproject.fragments.Reels"
+        android:label="fragment_reels"
+        tools:layout="@layout/fragment_reels" />
 </navigation>
